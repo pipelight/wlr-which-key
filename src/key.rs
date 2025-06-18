@@ -14,6 +14,8 @@ pub struct ModifierState {
     pub mod_ctrl: bool,
     pub mod_alt: bool,
     pub mod_mod4: bool,
+    pub mod_super_l: bool,
+    pub mod_shift_l: bool,
 }
 
 impl ModifierState {
@@ -22,6 +24,8 @@ impl ModifierState {
             mod_ctrl: xkb.mod_name_is_active(xkb::MOD_NAME_CTRL, xkb::STATE_MODS_EFFECTIVE),
             mod_alt: xkb.mod_name_is_active(xkb::MOD_NAME_ALT, xkb::STATE_MODS_EFFECTIVE),
             mod_mod4: xkb.mod_name_is_active(xkb::MOD_NAME_LOGO, xkb::STATE_MODS_EFFECTIVE),
+            mod_super_l: xkb.mod_name_is_active("Super_L", xkb::STATE_MODS_EFFECTIVE),
+            mod_shift_l: xkb.mod_name_is_active("Shift_L", xkb::STATE_MODS_EFFECTIVE),
         }
     }
 }
@@ -86,6 +90,10 @@ impl FromStr for SingleKey {
             } else if modifier.eq_ignore_ascii_case("mod4") || modifier.eq_ignore_ascii_case("logo")
             {
                 modifiers.mod_mod4 = true;
+            } else if modifier.eq_ignore_ascii_case("super_l") {
+                modifiers.mod_super_l = true;
+            } else if modifier.eq_ignore_ascii_case("shift_l") {
+                modifiers.mod_shift_l = true;
             } else {
                 return Err(format!("unknown modifier '{modifier}"));
             }
