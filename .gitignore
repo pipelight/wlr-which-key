@@ -1,1 +1,6 @@
 /target
+
+# nix
+.envrc
+.direnv
+flake.lock
